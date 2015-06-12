@@ -1,0 +1,33 @@
+digraph G {
+    rankdir=TB;
+    size="7.5,10";
+    ratio=auto;
+    node [shape=box,
+          style=filled,
+          color="#FDF6E3",
+          fontname="Helvetica",
+          fontsize=20,
+          fontcolor="#073642"];
+    edge [fontname="Helvetica",
+          fontsize=12,
+          color="#073642",
+          fontcolor="#073642"];
+    
+    source [label="Source"];
+    tokens [label="Tokens"];
+    ast [label="Abstract form"];
+    bytecode [label="Bytecode"];
+    runtime [label="Runtime"];
+
+    source -> tokens [label=" tokenize"];
+    tokens -> ast [label=" parse"];
+    ast -> bytecode [label=" compile", labelangle=180];
+    ast -> runtime [label=" evaluate"];
+    bytecode -> runtime [label=" load", constraint=false];
+    
+    edge [style=dashed, constraint=false, arrowsize=0.75];
+    source -> source [label=" substitute"];
+    tokens -> tokens [label=" rewrite"];
+    ast -> ast [label=" transform"];
+    ast -> source [label="  pretty-print", headport=se, tailport=ne];
+}
